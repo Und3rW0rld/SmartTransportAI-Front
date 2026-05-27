@@ -2,6 +2,9 @@
 
 Web client for the **Integrated Intelligent System for Prediction, Classification, and Recommendation in the Transport Company**. Built as part of a deep learning project at Universidad Nacional de Colombia.
 
+<img width="1287" height="1099" alt="image" src="https://github.com/user-attachments/assets/19b152bb-bb03-4db7-b9b1-649cb05894f6" />
+
+
 ## Overview
 
 This application integrates three AI-powered modules into a single dashboard:

@@ -4,10 +4,8 @@ import {
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ROUTES, demandDataByRoute } from '@/data/mockData'
-import { TrendingUp } from 'lucide-react'
 import { ROUTES, demandDataByRoute, MODEL_METRICS } from '@/data/mockData'
-
+import { TrendingUp } from 'lucide-react'
 export default function DemandPrediction() {
   const [selectedRoute, setSelectedRoute] = useState(ROUTES[0])
   const data = demandDataByRoute[selectedRoute]

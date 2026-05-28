@@ -261,4 +261,58 @@ export const demandDataByRoute: Record<string, { date: string; pasajeros?: numbe
     { date: '2018-05-14', prediccion: 129 },
     { date: '2018-05-15', prediccion: 129 },
     { date: '2018-05-16', prediccion: 129 },
-    { date: '2018-05-17'
+    { date: '2018-05-17', prediccion: 129 },
+    { date: '2018-05-18', prediccion: 129 },
+    { date: '2018-05-19', prediccion: 129 },
+    { date: '2018-05-20', prediccion: 129 },
+  ],
+}
+
+// Métricas reales del modelo LSTM
+export const MODEL_METRICS: Record<string, { RMSE: number; MAE: number; MAPE: number }> = {
+  'Kisii':        { RMSE: 12.44, MAE: 9.10,  MAPE: 40.32 },
+  'Migori':       { RMSE: 9.99,  MAE: 8.16,  MAPE: 17.88 },
+  'Homa Bay':     { RMSE: 29.28, MAE: 24.57, MAPE: 278.39 },
+  'Otras Rutas':  { RMSE: 76.58, MAE: 71.69, MAPE: 28.51 },
+}
+
+// ============================================================
+// MÓDULO 3 — Sistema de Recomendación (sin cambios)
+// ============================================================
+export const USERS = [
+  { id: 'U001', name: 'Carlos Rodríguez', trips: 24 },
+  { id: 'U002', name: 'María López',      trips: 17 },
+  { id: 'U003', name: 'Andrés Martínez',  trips: 31 },
+  { id: 'U004', name: 'Laura García',     trips: 12 },
+  { id: 'U005', name: 'Felipe Torres',    trips: 8  },
+]
+
+export const DESTINATIONS = [
+  { id: 'D01', name: 'Medellín',      region: 'Antioquia',       category: 'ciudad',   tags: ['negocios', 'cultura', 'gastronomía'] },
+  { id: 'D02', name: 'Cartagena',     region: 'Bolívar',         category: 'playa',    tags: ['turismo', 'playa', 'historia'] },
+  { id: 'D03', name: 'Santa Marta',   region: 'Magdalena',       category: 'playa',    tags: ['playa', 'naturaleza', 'aventura'] },
+  { id: 'D04', name: 'Cali',          region: 'Valle del Cauca', category: 'ciudad',   tags: ['cultura', 'música', 'gastronomía'] },
+  { id: 'D05', name: 'San Andrés',    region: 'Archipiélago',    category: 'isla',     tags: ['playa', 'buceo', 'relax'] },
+  { id: 'D06', name: 'Villa de Leyva',region: 'Boyacá',          category: 'colonial', tags: ['historia', 'cultura', 'naturaleza'] },
+  { id: 'D07', name: 'Bucaramanga',   region: 'Santander',       category: 'ciudad',   tags: ['aventura', 'naturaleza', 'negocios'] },
+  { id: 'D08', name: 'Pereira',       region: 'Risaralda',       category: 'ciudad',   tags: ['café', 'naturaleza', 'aventura'] },
+]
+
+const userPreferences: Record<string, string[]> = {
+  U001: ['negocios', 'cultura', 'gastronomía'],
+  U002: ['playa', 'relax', 'historia'],
+  U003: ['aventura', 'naturaleza', 'café'],
+  U004: ['cultura', 'historia', 'música'],
+  U005: ['playa', 'buceo', 'turismo'],
+}
+
+export function getRecommendations(userId: string) {
+  const prefs = userPreferences[userId] ?? ['cultura', 'naturaleza']
+  return DESTINATIONS
+    .map(d => ({
+      ...d,
+      score: d.tags.filter(t => prefs.includes(t)).length / d.tags.length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+}

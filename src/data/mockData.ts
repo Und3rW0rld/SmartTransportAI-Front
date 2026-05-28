@@ -270,10 +270,10 @@ export const demandDataByRoute: Record<string, { date: string; pasajeros?: numbe
 
 // Métricas reales del modelo LSTM
 export const MODEL_METRICS: Record<string, { RMSE: number; MAE: number; MAPE: number }> = {
-  'Kisii':        { RMSE: 12.04, MAE: 9.00,  MAPE: 42.05 },
-  'Migori':       { RMSE: 10.06, MAE: 8.31,  MAPE: 17.91 },
-  'Homa Bay':     { RMSE: 30.15, MAE: 25.74, MAPE: 264.76 },
-  'Otras Rutas':  { RMSE: 86.15, MAE: 81.76, MAPE: 32.39 },
+  'Kisii':        { RMSE: 11.74, MAE: 8.85,  MAPE: 42.42  },
+  'Migori':       { RMSE: 9.83,  MAE: 8.11,  MAPE: 17.58  },
+  'Homa Bay':     { RMSE: 29.60, MAE: 24.96, MAPE: 271.53 },
+  'Otras Rutas':  { RMSE: 64.65, MAE: 56.17, MAPE: 24.89  },
 }
 
 // ============================================================

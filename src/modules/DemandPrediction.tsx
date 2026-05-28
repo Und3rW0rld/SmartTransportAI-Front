@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { ROUTES, demandDataByRoute } from '@/data/mockData'
 import { TrendingUp } from 'lucide-react'
+import { ROUTES, demandDataByRoute, MODEL_METRICS } from '@/data/mockData'
 
 export default function DemandPrediction() {
   const [selectedRoute, setSelectedRoute] = useState(ROUTES[0])
@@ -89,22 +90,25 @@ export default function DemandPrediction() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm">Métricas del Modelo</CardTitle>
+          <CardTitle className="text-sm">Métricas del Modelo — {selectedRoute}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
             {[
-              { label: 'RMSE', value: '18.4' },
-              { label: 'MAE', value: '14.2' },
-              { label: 'MAPE', value: '4.7%' },
-              { label: 'R²', value: '0.93' },
+              { label: 'RMSE', value: MODEL_METRICS[selectedRoute]?.RMSE.toFixed(2), desc: 'pasajeros' },
+              { label: 'MAE',  value: MODEL_METRICS[selectedRoute]?.MAE.toFixed(2),  desc: 'pasajeros' },
+              { label: 'MAPE', value: MODEL_METRICS[selectedRoute]?.MAPE.toFixed(1) + '%', desc: 'error medio' },
             ].map(m => (
               <div key={m.label} className="bg-secondary rounded-lg p-3">
                 <p className="text-lg font-bold text-primary">{m.value}</p>
                 <p className="text-xs text-muted-foreground">{m.label}</p>
+                <p className="text-xs text-muted-foreground">{m.desc}</p>
               </div>
             ))}
           </div>
+          <p className="text-xs text-muted-foreground mt-3 text-center">
+            * MAPE elevado en Homa Bay se debe a días con demanda cero (Semana Santa). Se recomienda usar RMSE y MAE como métricas principales.
+          </p>
         </CardContent>
       </Card>
     </div>

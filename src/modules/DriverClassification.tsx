@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Camera, Upload, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const API_URL = 'https://driver-distraction-api-production.up.railway.app/predict'
+const API_URL: string | undefined = import.meta.env.VITE_DISTRACTION_API_URL
 
 type DangerLevel = 'LOW' | 'MEDIUM' | 'HIGH'
 
@@ -59,6 +59,11 @@ export default function DriverClassification() {
 
   const predict = async () => {
     if (!file) return
+    if (!API_URL) {
+      console.error('VITE_DISTRACTION_API_URL no está definida')
+      setError('API no configurada: falta la variable de entorno VITE_DISTRACTION_API_URL')
+      return
+    }
     setLoading(true)
     setError(null)
     try {

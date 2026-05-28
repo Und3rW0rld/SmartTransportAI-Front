@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Camera, Upload, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const API_URL: string | undefined = import.meta.env.VITE_DISTRACTION_API_URL
+const API_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/predict`
+  : undefined
 
 type DangerLevel = 'LOW' | 'MEDIUM' | 'HIGH'
 
@@ -61,7 +63,7 @@ export default function DriverClassification() {
     if (!file) return
     if (!API_URL) {
       console.error('VITE_DISTRACTION_API_URL no está definida')
-      setError('API no configurada: falta la variable de entorno VITE_DISTRACTION_API_URL')
+      setError('API no configurada: falta la variable de entorno VITE_API_URL')
       return
     }
     setLoading(true)
@@ -184,10 +186,10 @@ export default function DriverClassification() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             {[
-              { label: 'Accuracy', value: '94.2%' },
-              { label: 'Precision', value: '93.8%' },
-              { label: 'Recall', value: '92.5%' },
-              { label: 'F1-Score', value: '93.1%' },
+              { label: 'Accuracy', value: '73.0%' },
+              { label: 'Precision', value: '73.0%' },
+              { label: 'Recall', value: '73.0%' },
+              { label: 'F1-Score', value: '72.0%' },
             ].map(m => (
               <div key={m.label} className="bg-secondary rounded-lg p-3">
                 <p className="text-lg font-bold text-primary">{m.value}</p>
